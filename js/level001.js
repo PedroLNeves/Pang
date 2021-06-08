@@ -1,16 +1,20 @@
 import { Player } from "./player.js";
 import { Meteors } from "./meteors.js";
 import { Harpon } from "./harpon.js";
-
+// class MeteorGroup extends Phaser.Physics.Arcade.Group
+// {
+//     constructor(scene) {
+//         classType: Meteors,
+//         key: 'meteor'
+//     }
+    
+// }
 class LaserGroup extends Phaser.Physics.Arcade.Group
 {
 	constructor(scene) {
-		// Call the super constructor, passing in a world and a scene
 		super(scene.physics.world, scene);
- 
-		// Initialize the group
 		this.createMultiple({
-			classType: Laser, // This is the class we create just below
+			classType: Laser,
 			frameQuantity: 30, // Create 30 instances in the pool
 			active: false,
 			visible: false,
@@ -18,7 +22,6 @@ class LaserGroup extends Phaser.Physics.Arcade.Group
 		})
 	}
     fireLaser(x, y) {
-		// Get the first available sprite in the group
 		const laser = this.getFirstDead(false);
 		if (laser) {
 			laser.fire(x, y);
@@ -35,7 +38,6 @@ class Laser extends Phaser.Physics.Arcade.Sprite {
 	}
     fire(x, y) {
 		this.body.reset(x, y);
-        //this.setCollideWorldBounds(true);
         this.body.setAllowGravity(false)
 		this.setActive(true);
 		this.setVisible(true);
@@ -64,51 +66,61 @@ export class Level001 extends Phaser.Scene {
 
     init() {
         this.controls = this.input.keyboard.createCursorKeys();
-
-        this.input.on('pointerdown', (pointer) => {
-            console.log(`${pointer.x}, ${pointer.y}`);
-            this.shootLaser();
-        })
     }
 
     create() {
         this.add.image(0, 0, 'background').setOrigin(0).setScale(5);
 
+        this.meteors = this.physics.add.group();
+
         this.player = new Player(
             this,
             this.game.config.width * 0.5,
-            this.game.config.height * 0.5,
+            this.game.config.height,
             'player', 0
             );
-        this.meteors = new Meteors(
-            this,
-            this.game.config.width * 0.5,
-            this.game.config.height * 0.5,
-            'meteors', 6
-        );
-
+            this.meteors = new Meteors(
+                this, this.game.config.width * 0.5,
+                this.game.config.height * 0.5,
+                'meteors', 6
+            );
         this.laserGroup = new LaserGroup(this);
-        //this.addEvents();
+        this.physics.add.overlap(this.laserGroup, this.meteors, this.laserHitMeteors, null, this);
 
     }
-
-    // addEvents() {
-    //     // ...
-    //     this.input.on('pointerdown', pointer => {
-    //         this.shootLaser();
-    //     });
-    // }
-
+    laserHitMeteors (laserGroup, meteors)
+    {
+        
+        meteors.destroy();
+        laserGroup.destroy();
+        this.createMeteors();
+        this.laserLimit = 0;  
+        console.log("OUCH AOUCH I BROKE MY KNEE");
+        // //  Hide the sprite
+        // healthGroup.killAndHide(health);
+    
+        // //  And disable the body
+        // health.body.enable = false;
+    
+        // //  Add 10 health, it'll never go over maxHealth
+        // currentHealth = Phaser.Math.MaxAdd(currentHealth, 10, maxHealth);
+    }
+    
     update(time) {
         this.player.update(time);
 
         if(this.controls.space.isDown) {
             this.shootLaser();
-            //this.FireHarpon();
         }
     }
-
-
+    createMeteors()
+    {
+        this.meteors = new Meteors(
+            this, this.meteors.x,
+            this.meteors.y,
+            'meteors', 6
+        );
+    }
     shootLaser() {
 
         console.log(+ this.laserLimit);
@@ -122,22 +134,4 @@ export class Level001 extends Phaser.Scene {
         this.laserGroup.fireLaser(this.player.x, 8000);
         }
     }
-
-//    fireHarpon(){
-//     console.log("pew pew");
-//     this.laserGroup.fireLaser(this.player.x, this.player.y -20);
-// // //         this.countHarpon++;
-
-// // //         if(this.countHarpon > 2) {
-// // //             return; }
-// // //           else {
-
-   
-// // //             var harpon = this.add.image(this.player.x, 1000, 'harpon').setOrigin(0).setScale(10);
-// // //             this.physics.add.overlap(harpon,this.groupBall,this.hitHarpoon,null,this);
-// // //           }  
-        
-//    }
-
-
 }
