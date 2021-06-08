@@ -88,38 +88,182 @@ export class Level001 extends Phaser.Scene {
         this.physics.add.overlap(this.laserGroup, this.meteors, this.laserHitMeteors, null, this);
 
     }
+    /////
+    //BEYOND THIS POINT IT IS TOO LATE YOU HAVE REACHED PEAK DESPERATION AND GHETTO TRICKS
+    /////
     laserHitMeteors (laserGroup, meteors)
     {
-        
+        this.laserLimit = 0; 
+        this.meteors1 = new Meteors(
+            this, this.meteors.x,
+            this.meteors.y,
+            'meteors', 6
+        ).setScale(2.5);
+        this.physics.add.overlap(this.laserGroup, this.meteors1, this.laserHitMeteors1, null, this);
+        this.meteors11 = new Meteors(
+            this, this.meteors.x,
+            this.meteors.y,
+            'meteors', 6
+        ).setScale(2.5);
+        this.physics.add.overlap(this.laserGroup, this.meteors11, this.laserHitMeteors11, null, this);
         meteors.destroy();
         laserGroup.destroy();
-        this.createMeteors();
-        this.laserLimit = 0;  
-        console.log("OUCH AOUCH I BROKE MY KNEE");
-        // //  Hide the sprite
-        // healthGroup.killAndHide(health);
-    
-        // //  And disable the body
-        // health.body.enable = false;
-    
-        // //  Add 10 health, it'll never go over maxHealth
-        // currentHealth = Phaser.Math.MaxAdd(currentHealth, 10, maxHealth);
     }
-    
+///
+    laserHitMeteors1(laserGroup, meteors1){
+        this.laserLimit = 0; 
+        this.meteors2 = new Meteors(
+            this, this.meteors1.x,
+            this.meteors1.y,
+            'meteors', 6
+        ).setScale(1.25);
+        this.physics.add.overlap(this.laserGroup, this.meteors2, this.laserHitMeteors2, null, this);
+        this.meteors222 = new Meteors(
+            this, this.meteors1.x,
+            this.meteors1.y,
+            'meteors', 6
+        ).setScale(1.25);
+        this.physics.add.overlap(this.laserGroup, this.meteors222, this.laserHitMeteors222, null, this);
+        meteors1.destroy();
+        laserGroup.destroy();
+    }
+    laserHitMeteors222(laserGroup, meteors222){
+        this.laserLimit = 0; 
+        this.meteors13333 = new Meteors(
+            this, this.meteors222.x,
+            this.meteors222.y,
+            'meteors', 6
+        ).setScale(0.75);
+        this.physics.add.overlap(this.laserGroup, this.meteors13333, this.laserHitMeteors13333, null, this);
+        this.meteors23333 = new Meteors(
+            this, this.meteors222.x,
+            this.meteors222.y,
+            'meteors', 6
+        ).setScale(0.75);
+        this.physics.add.overlap(this.laserGroup, this.meteors23333, this.laserHitMeteors23333, null, this);
+        meteors222.destroy();
+        laserGroup.destroy();
+    }
+///   
+    laserHitMeteors11(laserGroup, meteors11){
+        this.laserLimit = 0; 
+        this.meteors22 = new Meteors(
+            this, this.meteors11.x,
+            this.meteors11.y,
+            'meteors', 6
+        ).setScale(1.25);
+        this.physics.add.overlap(this.laserGroup, this.meteors22, this.laserHitMeteors22, null, this);
+        this.meteors22 = new Meteors(
+            this, this.meteors11.x,
+            this.meteors11.y,
+            'meteors', 6
+        ).setScale(1.25);
+        this.physics.add.overlap(this.laserGroup, this.meteors122, this.laserHitMeteors122, null, this);
+        meteors11.destroy();
+        laserGroup.destroy();
+    }
+
+    laserHitMeteors122(laserGroup, meteors122){
+        this.laserLimit = 0; 
+        this.meteors4433 = new Meteors(
+            this, this.meteors122.x,
+            this.meteors122.y,
+            'meteors', 6
+        ).setScale(0.75);
+        this.physics.add.overlap(this.laserGroup, this.meteors4433, this.laserHitMeteors4433, null, this);
+        this.meteors533 = new Meteors(
+            this, this.meteors122.x,
+            this.meteors122.y,
+            'meteors', 6
+        ).setScale(0.75);
+        this.physics.add.overlap(this.laserGroup, this.meteors533, this.laserHitMeteors533, null, this);
+        meteors122.destroy();
+        laserGroup.destroy();
+        }
+    laserHitMeteors22(laserGroup, meteors22){
+        this.laserLimit = 0; 
+        this.meteors33 = new Meteors(
+            this, this.meteors22.x,
+            this.meteors22.y,
+            'meteors', 6
+        ).setScale(0.75);
+        this.physics.add.overlap(this.laserGroup, this.meteors33, this.laserHitMeteors33, null, this);
+        this.meteors3333 = new Meteors(
+            this, this.meteors22.x,
+            this.meteors22.y,
+            'meteors', 6
+        ).setScale(0.75);
+        this.physics.add.overlap(this.laserGroup, this.meteors3333, this.laserHitMeteors3333, null, this);
+        meteors22.destroy();
+        laserGroup.destroy();
+    }
+    laserHitMeteors2(laserGroup, meteors2){
+        this.laserLimit = 0; 
+        this.meteors3 = new Meteors(
+            this, this.meteors2.x,
+            this.meteors2.y,
+            'meteors', 6
+        ).setScale(0.75);
+        this.physics.add.overlap(this.laserGroup, this.meteors3, this.laserHitMeteors3, null, this);
+        this.meteors333 = new Meteors(
+            this, this.meteors2.x,
+            this.meteors2.y,
+            'meteors', 6
+        ).setScale(0.75);
+        this.physics.add.overlap(this.laserGroup, this.meteors333, this.laserHitMeteors333, null, this);
+        meteors2.destroy();
+        laserGroup.destroy();
+    }
+    laserHitMeteors1333(laserGroup, meteors1333){
+        this.laserLimit = 0; 
+        meteors1333.destroy();
+        laserGroup.destroy();
+    }
+    laserHitMeteors23333(laserGroup, meteors23333){
+        this.laserLimit = 0; 
+        meteors23333.destroy();
+        laserGroup.destroy();
+    }
+    laserHitMeteors333(laserGroup, meteors333){
+        this.laserLimit = 0; 
+        meteors333.destroy();
+        laserGroup.destroy();
+    }
+    laserHitMeteors3333(laserGroup, meteors3333){
+        this.laserLimit = 0; 
+        meteors3333.destroy();
+        laserGroup.destroy();
+    }
+    laserHitMeteors3(laserGroup, meteors3){
+        this.laserLimit = 0; 
+        meteors3.destroy();
+        laserGroup.destroy();
+    }
+    laserHitMeteors33(laserGroup, meteors33){
+        //COUNT NUMBER UNTIL WIN YES
+        this.laserLimit = 0; 
+        meteors33.destroy();
+        laserGroup.destroy();
+    }
+    laserHitMeteors533(laserGroup, meteors533){
+        this.laserLimit = 0; 
+        meteors533.destroy();
+        laserGroup.destroy();
+    }
+    laserHitMeteors4433(laserGroup, meteors433){
+        this.laserLimit = 0; 
+        meteors433.destroy();
+        laserGroup.destroy();
+    }
+    /////
+    //CONGRATS YOU MADE IT ALIVE
+    /////
     update(time) {
         this.player.update(time);
 
         if(this.controls.space.isDown) {
             this.shootLaser();
         }
-    }
-    createMeteors()
-    {
-        this.meteors = new Meteors(
-            this, this.meteors.x,
-            this.meteors.y,
-            'meteors', 6
-        );
     }
     shootLaser() {
 
