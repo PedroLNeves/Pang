@@ -153,7 +153,7 @@ export class Level001 extends Phaser.Scene {
             'meteors', 6
         ).setScale(1.25);
         this.physics.add.overlap(this.laserGroup, this.meteors22, this.laserHitMeteors22, null, this);
-        this.meteors22 = new Meteors(
+        this.meteors122 = new Meteors(
             this, this.meteors11.x,
             this.meteors11.y,
             'meteors', 6
@@ -212,32 +212,37 @@ export class Level001 extends Phaser.Scene {
         ).setScale(0.75);
         this.physics.add.overlap(this.laserGroup, this.meteors333, this.laserHitMeteors333, null, this);
         meteors2.destroy();
-        laserGroup.destroy();
+        laserGroup.destroy();       
     }
     laserHitMeteors1333(laserGroup, meteors1333){
         this.laserLimit = 0; 
         meteors1333.destroy();
         laserGroup.destroy();
+        console.log("7");
     }
     laserHitMeteors23333(laserGroup, meteors23333){
         this.laserLimit = 0; 
         meteors23333.destroy();
         laserGroup.destroy();
+        console.log("6");
     }
     laserHitMeteors333(laserGroup, meteors333){
         this.laserLimit = 0; 
         meteors333.destroy();
         laserGroup.destroy();
+        console.log("5");
     }
     laserHitMeteors3333(laserGroup, meteors3333){
         this.laserLimit = 0; 
         meteors3333.destroy();
         laserGroup.destroy();
+        console.log("4");
     }
     laserHitMeteors3(laserGroup, meteors3){
         this.laserLimit = 0; 
         meteors3.destroy();
         laserGroup.destroy();
+        console.log("3");
     }
     laserHitMeteors33(laserGroup, meteors33){
         //COUNT NUMBER UNTIL WIN YES
@@ -249,11 +254,20 @@ export class Level001 extends Phaser.Scene {
         this.laserLimit = 0; 
         meteors533.destroy();
         laserGroup.destroy();
+        console.log("2");
     }
     laserHitMeteors4433(laserGroup, meteors433){
         this.laserLimit = 0; 
         meteors433.destroy();
         laserGroup.destroy();
+        console.log("1");
+    }
+
+    laserHitMeteors13333(laserGroup, meteors13333){
+        this.laserLimit = 0;
+        meteors13333.destroy();
+        laserGroup.destroy();
+        console.log("8");
     }
     /////
     //CONGRATS YOU MADE IT ALIVE
