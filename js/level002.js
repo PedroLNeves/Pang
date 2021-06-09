@@ -85,13 +85,100 @@ export class Level002 extends Phaser.Scene {
                 this.game.config.height * 0.5,
                 'meteors', 6
             );
+            this.meteorsX = new Meteors(
+                this, this.game.config.width * 0.25,
+                this.game.config.height * 0.5,
+                'meteors', 6
+            ).setScale(2.5);
         this.laserGroup = new LaserGroup(this);
         this.physics.add.overlap(this.laserGroup, this.meteors, this.laserHitMeteors, null, this);
+        this.physics.add.overlap(this.laserGroup, this.meteorsX, this.laserHitMeteorsX, null, this);
 
     }
     /////
     //BEYOND THIS POINT IT IS TOO LATE YOU HAVE REACHED PEAK DESPERATION AND GHETTO TRICKS
     /////
+
+    laserHitMeteorsX1(laserGroup, meteorsX1)
+    {
+        console.log("NUMBER ONE BUG");
+            this.laserLimit = 0; 
+            this.meteorsX11 = new Meteors(
+                this, this.meteorsX1.x,
+                this.meteorsX1.y,
+                'meteors', 6
+            ).setScale(0.75);
+            this.physics.add.overlap(this.laserGroup, this.meteorsX11, this.laserHitMeteorsX11, null, this);
+            this.meteorsX12 = new Meteors(
+                this, this.meteorsX1.x,
+                this.meteorsX1.y,
+                'meteors', 6
+            ).setScale(0.75);
+            this.physics.add.overlap(this.laserGroup, this.meteorsX12, this.laserHitMeteorsX12, null, this);
+            meteorsX1.destroy();
+            laserGroup.destroy(); 
+    }
+    laserHitMeteorsX2(laserGroup, meteorsX2)
+    {
+        console.log("NUMBER TWO BUG");
+            this.laserLimit = 0; 
+            this.meteorsX21 = new Meteors(
+                this, this.meteorsX2.x,
+                this.meteorsX2.y,
+                'meteors', 6
+            ).setScale(0.75);
+            this.physics.add.overlap(this.laserGroup, this.meteorsX21, this.laserHitMeteorsX21, null, this);
+            this.meteorsX22 = new Meteors(
+                this, this.meteorsX2.x,
+                this.meteorsX2.y,
+                'meteors', 6
+            ).setScale(0.75);
+            this.physics.add.overlap(this.laserGroup, this.meteorsX22, this.laserHitMeteorsX22, null, this);
+            meteorsX2.destroy();
+            laserGroup.destroy(); 
+    }
+    laserHitMeteorsX21(laserGroup, meteorsX21){
+        this.laserLimit = 0;
+        meteorsX21.destroy();
+        laserGroup.destroy();
+        this.meteorsScore2++;
+    }
+    laserHitMeteorsX22(laserGroup, meteorsX22){
+        this.laserLimit = 0;
+        meteorsX22.destroy();
+        laserGroup.destroy();
+        this.meteorsScore2++;
+    }
+    laserHitMeteorsX(laserGroup, meteorsX)
+    {
+            this.laserLimit = 0; 
+            this.meteorsX1 = new Meteors(
+                this, this.meteorsX.x,
+                this.meteorsX.y,
+                'meteors', 6
+            ).setScale(1.25);
+            this.physics.add.overlap(this.laserGroup, this.meteorsX1, this.laserHitMeteorsX1, null, this);
+            this.meteorsX2 = new Meteors(
+                this, this.meteorsX.x,
+                this.meteorsX.y,
+                'meteors', 6
+            ).setScale(1.25);
+            this.physics.add.overlap(this.laserGroup, this.meteorsX2, this.laserHitMeteorsX2, null, this);
+            meteorsX.destroy();
+            laserGroup.destroy(); 
+    }
+    laserHitMeteorsX11(laserGroup, meteorsX11){
+        this.laserLimit = 0;
+        meteorsX11.destroy();
+        laserGroup.destroy();
+        this.meteorsScore2++;
+    }
+    laserHitMeteorsX12(laserGroup, meteorsX12){
+        this.laserLimit = 0;
+        meteorsX12.destroy();
+        laserGroup.destroy();
+        this.meteorsScore2++;
+    }
     laserHitMeteors (laserGroup, meteors)
     {
         this.laserLimit = 0; 
@@ -288,8 +375,8 @@ export class Level002 extends Phaser.Scene {
         if(this.controls.space.isDown) {
             this.shootLaser();
         }
-
-        if (this.meteorsScore2 >= 8)
+        console.log("CURRENT SCORE" + this.meteorsScore2);
+        if (this.meteorsScore2 >= 12)
         {
             this.scene.start('Level003');
         }

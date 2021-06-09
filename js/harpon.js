@@ -1,3 +1,4 @@
+
 export class Harpon extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
@@ -35,4 +36,6 @@ export class Harpon extends Phaser.Physics.Arcade.Sprite{
         this.physics.add.overlap(harpon,this.groupBall,this.hitHarpoon,null,this);
         }
     }
+
+
 }
