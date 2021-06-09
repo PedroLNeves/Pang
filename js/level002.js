@@ -42,7 +42,7 @@ class Laser extends Phaser.Physics.Arcade.Sprite {
 		this.setActive(true);
 		this.setVisible(true);
 
-		this.setVelocityY(-2000);
+		this.setVelocityY(-2250);
         this.setScale(15);      
     }
     preUpdate(time, delta) {
@@ -56,11 +56,11 @@ class Laser extends Phaser.Physics.Arcade.Sprite {
 		}
 	}
 }
-export class Level001 extends Phaser.Scene {
+export class Level002 extends Phaser.Scene {
     constructor() {
-        super('Level001');
+        super('Level002');
         this.laserLimit = 0;
-        this.meteorScore = 0;
+        this.meteorsScore2 = 0;
 
         this.laserGroup;
     }
@@ -70,7 +70,7 @@ export class Level001 extends Phaser.Scene {
     }
 
     create() {
-        this.add.image(0, 0, 'background').setOrigin(0).setScale(5);
+        this.add.image(0, 0, 'background2').setOrigin(0).setScale(5);
 
         this.meteors = this.physics.add.group();
 
@@ -220,56 +220,56 @@ export class Level001 extends Phaser.Scene {
         meteors1333.destroy();
         laserGroup.destroy();
         console.log("7");
-        this.meteorScore++;
+        this.meteorsScore2++;
     }
     laserHitMeteors23333(laserGroup, meteors23333){
         this.laserLimit = 0; 
         meteors23333.destroy();
         laserGroup.destroy();
         console.log("6");
-        this.meteorScore++;
+        this.meteorsScore2++;
     }
     laserHitMeteors333(laserGroup, meteors333){
         this.laserLimit = 0; 
         meteors333.destroy();
         laserGroup.destroy();
         console.log("5");
-        this.meteorScore++;
+        this.meteorsScore2++;
     }
     laserHitMeteors3333(laserGroup, meteors3333){
         this.laserLimit = 0; 
         meteors3333.destroy();
         laserGroup.destroy();
         console.log("4");
-        this.meteorScore++;
+        this.meteorsScore2++;
     }
     laserHitMeteors3(laserGroup, meteors3){
         this.laserLimit = 0; 
         meteors3.destroy();
         laserGroup.destroy();
         console.log("3");
-        this.meteorScore++;
+        this.meteorsScore2++;
     }
     laserHitMeteors33(laserGroup, meteors33){
         //COUNT NUMBER UNTIL WIN YES
         this.laserLimit = 0; 
         meteors33.destroy();
         laserGroup.destroy();
-        this.meteorScore++;
+        this.meteorsScore2++;
     }
     laserHitMeteors533(laserGroup, meteors533){
         this.laserLimit = 0; 
         meteors533.destroy();
         laserGroup.destroy();
         console.log("2");
-        this.meteorScore++;
+        this.meteorsScore2++;
     }
     laserHitMeteors4433(laserGroup, meteors433){
         this.laserLimit = 0; 
         meteors433.destroy();
         laserGroup.destroy();
         console.log("1");
-        this.meteorScore++;
+        this.meteorsScore2++;
     }
 
     laserHitMeteors13333(laserGroup, meteors13333){
@@ -277,9 +277,8 @@ export class Level001 extends Phaser.Scene {
         meteors13333.destroy();
         laserGroup.destroy();
         console.log("8");
-        this.meteorScore++;
+        this.meteorsScore2++;
     }
-    
     /////
     //CONGRATS YOU MADE IT ALIVE
     /////
@@ -290,10 +289,9 @@ export class Level001 extends Phaser.Scene {
             this.shootLaser();
         }
 
-        console.log(+ this.meteorScore);
-        if (this.meteorScore >= 8)
+        if (this.meteorsScore2 >= 8)
         {
-            this.scene.start('Level002');
+            this.scene.start('Level003');
         }
     }
     shootLaser() {
