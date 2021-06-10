@@ -65,6 +65,7 @@ export class Level003 extends Phaser.Scene {
 
     init() {
         this.controls = this.input.keyboard.createCursorKeys();
+        this.lives = 3;
     }
 
     create() {
@@ -96,23 +97,35 @@ export class Level003 extends Phaser.Scene {
             this.player.setSize(100,180);
             this.player.body.offset.y = 100;
         this.laserGroup = new LaserGroup(this);
-        this.physics.add.overlap(this.laserGroup, this.meteors, this.laserHitMeteors, null, this);
-        this.physics.add.overlap(this.laserGroup, this.meteorsX, this.laserHitMeteorsX, null, this);
-        this.physics.add.overlap(this.laserGroup, this.meteorsY, this.laserHitMeteorsY, null, this);
-        this.physics.add.overlap(this.player, this.meteorsX, this.PlayerHitMeteors, null, this);
-        this.physics.add.overlap(this.player, this.meteorsY, this.PlayerHitMeteors, null, this);
-        this.physics.add.overlap(this.player, this.meteors, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteors, this.laserHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsX, this.laserHitMeteorsX, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsY, this.laserHitMeteorsY, null, this);
+        this.physics.add.collider(this.player, this.meteorsX, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.player, this.meteorsY, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.player, this.meteors, this.PlayerHitMeteors, null, this);
 
         this.sound.add('pew');
         this.sound.add('oof');
 
+        this.add.image(300, 400, `Life`).setScale(2);
+        this.livesText = this.add.text(
+            600, 300,
+            `${this.lives}`,
+            {
+                fontFamily: 'Arial',
+                fontSize: 200,
+                color: '#ffff',
+            }
+        )
     }
 
     PlayerHitMeteors()
     {
-        this.sound.play('oof');
-        this.scene.restart();
-        this.laserLimit = 0;
+        if(this.lives == 1){
+            this.scene.restart();
+        }
+        this.sound.play('oof')
+        this.lives--;
     }
     //////////////////////////
     laserHitMeteorsY (laserGroup, meteorsY)
@@ -123,15 +136,15 @@ export class Level003 extends Phaser.Scene {
             this.meteorsY.y,
             'meteors', 6
         ).setScale(2.5);
-        this.physics.add.overlap(this.laserGroup, this.meteorsY1, this.laserHitMeteorsY1, null, this);
-        this.physics.add.overlap(this.player, this.meteorsY1, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsY1, this.laserHitMeteorsY1, null, this);
+        this.physics.add.collider(this.player, this.meteorsY1, this.PlayerHitMeteors, null, this);
         this.meteorsY2 = new Meteors(
             this, this.meteorsY.x,
             this.meteorsY.y,
             'meteors', 6
         ).setScale(2.5);
-        this.physics.add.overlap(this.laserGroup, this.meteorsY2, this.laserHitMeteorsY2, null, this);
-        this.physics.add.overlap(this.player, this.meteorsY2, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsY2, this.laserHitMeteorsY2, null, this);
+        this.physics.add.collider(this.player, this.meteorsY2, this.PlayerHitMeteors, null, this);
         meteorsY.destroy();
         laserGroup.destroy();
     }
@@ -143,15 +156,15 @@ export class Level003 extends Phaser.Scene {
             this.meteorsY1.y,
             'meteors', 6
         ).setScale(1.25);
-        this.physics.add.overlap(this.laserGroup, this.meteorsY11, this.laserHitMeteorsY11, null, this);
-        this.physics.add.overlap(this.player, this.meteorsY11, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsY11, this.laserHitMeteorsY11, null, this);
+        this.physics.add.collider(this.player, this.meteorsY11, this.PlayerHitMeteors, null, this);
         this.meteorsY12 = new Meteors(
             this, this.meteorsY1.x,
             this.meteorsY1.y,
             'meteors', 6
         ).setScale(1.25);
-        this.physics.add.overlap(this.laserGroup, this.meteorsY12, this.laserHitMeteorsY12, null, this);
-        this.physics.add.overlap(this.player, this.meteorsY12, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsY12, this.laserHitMeteorsY12, null, this);
+        this.physics.add.collider(this.player, this.meteorsY12, this.PlayerHitMeteors, null, this);
         meteorsY1.destroy();
         laserGroup.destroy();
     }
@@ -162,15 +175,15 @@ export class Level003 extends Phaser.Scene {
             this.meteorsY11.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteorsY111, this.laserHitMeteorsY111, null, this);
-        this.physics.add.overlap(this.player, this.meteorsY111, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsY111, this.laserHitMeteorsY111, null, this);
+        this.physics.add.collider(this.player, this.meteorsY111, this.PlayerHitMeteors, null, this);
         this.meteorsY112 = new Meteors(
             this, this.meteorsY11.x,
             this.meteorsY11.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteorsY112, this.laserHitMeteorsY112, null, this);
-        this.physics.add.overlap(this.player, this.meteorsY112, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsY112, this.laserHitMeteorsY112, null, this);
+        this.physics.add.collider(this.player, this.meteorsY112, this.PlayerHitMeteors, null, this);
         meteorsY11.destroy();
         laserGroup.destroy();
     }
@@ -181,15 +194,15 @@ export class Level003 extends Phaser.Scene {
             this.meteorsY12.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteorsY121, this.laserHitMeteorsY121, null, this);
-        this.physics.add.overlap(this.player, this.meteorsY121, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsY121, this.laserHitMeteorsY121, null, this);
+        this.physics.add.collider(this.player, this.meteorsY121, this.PlayerHitMeteors, null, this);
         this.meteorsY122 = new Meteors(
             this, this.meteorsY12.x,
             this.meteorsY12.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteorsY122, this.laserHitMeteorsY122, null, this);
-        this.physics.add.overlap(this.player, this.meteorsY122, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsY122, this.laserHitMeteorsY122, null, this);
+        this.physics.add.collider(this.player, this.meteorsY122, this.PlayerHitMeteors, null, this);
         meteorsY12.destroy();
         laserGroup.destroy();       
     }
@@ -201,15 +214,15 @@ export class Level003 extends Phaser.Scene {
             this.meteorsY2.y,
             'meteors', 6
         ).setScale(1.25);
-        this.physics.add.overlap(this.laserGroup, this.meteorsY21, this.laserHitMeteorsY21, null, this);
-        this.physics.add.overlap(this.player, this.meteorsY21, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsY21, this.laserHitMeteorsY21, null, this);
+        this.physics.add.collider(this.player, this.meteorsY21, this.PlayerHitMeteors, null, this);
         this.meteorsY22 = new Meteors(
             this, this.meteorsY2.x,
             this.meteorsY2.y,
             'meteors', 6
         ).setScale(1.25);
-        this.physics.add.overlap(this.laserGroup, this.meteorsY22, this.laserHitMeteorsY22, null, this);
-        this.physics.add.overlap(this.player, this.meteorsY22, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsY22, this.laserHitMeteorsY22, null, this);
+        this.physics.add.collider(this.player, this.meteorsY22, this.PlayerHitMeteors, null, this);
         meteorsY2.destroy();
         laserGroup.destroy();
     }
@@ -221,15 +234,15 @@ export class Level003 extends Phaser.Scene {
             this.meteorsY21.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteorsY211, this.laserHitMeteorsY211, null, this);
-        this.physics.add.overlap(this.player, this.meteorsY211, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsY211, this.laserHitMeteorsY211, null, this);
+        this.physics.add.collider(this.player, this.meteorsY211, this.PlayerHitMeteors, null, this);
         this.meteorsY212 = new Meteors(
             this, this.meteorsY21.x,
             this.meteorsY21.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteorsY212, this.laserHitMeteorsY212, null, this);
-        this.physics.add.overlap(this.player, this.meteorsY212, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsY212, this.laserHitMeteorsY212, null, this);
+        this.physics.add.collider(this.player, this.meteorsY212, this.PlayerHitMeteors, null, this);
         meteorsY21.destroy();
         laserGroup.destroy();
         }
@@ -240,15 +253,15 @@ export class Level003 extends Phaser.Scene {
             this.meteorsY22.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteorsY221, this.laserHitMeteorsY221, null, this);
-        this.physics.add.overlap(this.player, this.meteorsY221, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsY221, this.laserHitMeteorsY221, null, this);
+        this.physics.add.collider(this.player, this.meteorsY221, this.PlayerHitMeteors, null, this);
         this.meteorsY222 = new Meteors(
             this, this.meteorsY22.x,
             this.meteorsY22.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteorsY222, this.laserHitMeteorsY222, null, this);
-        this.physics.add.overlap(this.player, this.meteorsY222, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteorsY222, this.laserHitMeteorsY222, null, this);
+        this.physics.add.collider(this.player, this.meteorsY222, this.PlayerHitMeteors, null, this);
         meteorsY22.destroy();
         laserGroup.destroy();
     }
@@ -313,15 +326,15 @@ export class Level003 extends Phaser.Scene {
                 this.meteorsX1.y,
                 'meteors', 6
             ).setScale(0.75);
-            this.physics.add.overlap(this.laserGroup, this.meteorsX11, this.laserHitMeteorsX11, null, this);
-            this.physics.add.overlap(this.player, this.meteorsX11, this.PlayerHitMeteors, null, this);
+            this.physics.add.collider(this.laserGroup, this.meteorsX11, this.laserHitMeteorsX11, null, this);
+            this.physics.add.collider(this.player, this.meteorsX11, this.PlayerHitMeteors, null, this);
             this.meteorsX12 = new Meteors(
                 this, this.meteorsX1.x,
                 this.meteorsX1.y,
                 'meteors', 6
             ).setScale(0.75);
-            this.physics.add.overlap(this.laserGroup, this.meteorsX12, this.laserHitMeteorsX12, null, this);
-            this.physics.add.overlap(this.player, this.meteorsX12, this.PlayerHitMeteors, null, this);
+            this.physics.add.collider(this.laserGroup, this.meteorsX12, this.laserHitMeteorsX12, null, this);
+            this.physics.add.collider(this.player, this.meteorsX12, this.PlayerHitMeteors, null, this);
             meteorsX1.destroy();
             laserGroup.destroy(); 
     }
@@ -333,15 +346,15 @@ export class Level003 extends Phaser.Scene {
                 this.meteorsX2.y,
                 'meteors', 6
             ).setScale(0.75);
-            this.physics.add.overlap(this.laserGroup, this.meteorsX21, this.laserHitMeteorsX21, null, this);
-            this.physics.add.overlap(this.player, this.meteorsX21, this.PlayerHitMeteors, null, this);
+            this.physics.add.collider(this.laserGroup, this.meteorsX21, this.laserHitMeteorsX21, null, this);
+            this.physics.add.collider(this.player, this.meteorsX21, this.PlayerHitMeteors, null, this);
             this.meteorsX22 = new Meteors(
                 this, this.meteorsX2.x,
                 this.meteorsX2.y,
                 'meteors', 6
             ).setScale(0.75);
-            this.physics.add.overlap(this.laserGroup, this.meteorsX22, this.laserHitMeteorsX22, null, this);
-            this.physics.add.overlap(this.player, this.meteorsX22, this.PlayerHitMeteors, null, this);
+            this.physics.add.collider(this.laserGroup, this.meteorsX22, this.laserHitMeteorsX22, null, this);
+            this.physics.add.collider(this.player, this.meteorsX22, this.PlayerHitMeteors, null, this);
             meteorsX2.destroy();
             laserGroup.destroy(); 
     }
@@ -365,15 +378,15 @@ export class Level003 extends Phaser.Scene {
                 this.meteorsX.y,
                 'meteors', 6
             ).setScale(1.25);
-            this.physics.add.overlap(this.laserGroup, this.meteorsX1, this.laserHitMeteorsX1, null, this);
-            this.physics.add.overlap(this.player, this.meteorsX1, this.PlayerHitMeteors, null, this);
+            this.physics.add.collider(this.laserGroup, this.meteorsX1, this.laserHitMeteorsX1, null, this);
+            this.physics.add.collider(this.player, this.meteorsX1, this.PlayerHitMeteors, null, this);
             this.meteorsX2 = new Meteors(
                 this, this.meteorsX.x,
                 this.meteorsX.y,
                 'meteors', 6
             ).setScale(1.25);
-            this.physics.add.overlap(this.laserGroup, this.meteorsX2, this.laserHitMeteorsX2, null, this);
-            this.physics.add.overlap(this.player, this.meteorsX2, this.PlayerHitMeteors, null, this);
+            this.physics.add.collider(this.laserGroup, this.meteorsX2, this.laserHitMeteorsX2, null, this);
+            this.physics.add.collider(this.player, this.meteorsX2, this.PlayerHitMeteors, null, this);
             meteorsX.destroy();
             laserGroup.destroy(); 
     }
@@ -397,15 +410,15 @@ export class Level003 extends Phaser.Scene {
             this.meteors.y,
             'meteors', 6
         ).setScale(2.5);
-        this.physics.add.overlap(this.laserGroup, this.meteors1, this.laserHitMeteors1, null, this);
-        this.physics.add.overlap(this.player, this.meteors1, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteors1, this.laserHitMeteors1, null, this);
+        this.physics.add.collider(this.player, this.meteors1, this.PlayerHitMeteors, null, this);
         this.meteors11 = new Meteors(
             this, this.meteors.x,
             this.meteors.y,
             'meteors', 6
         ).setScale(2.5);
-        this.physics.add.overlap(this.laserGroup, this.meteors11, this.laserHitMeteors11, null, this);
-        this.physics.add.overlap(this.player, this.meteors11, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteors11, this.laserHitMeteors11, null, this);
+        this.physics.add.collider(this.player, this.meteors11, this.PlayerHitMeteors, null, this);
         meteors.destroy();
         laserGroup.destroy();
     }
@@ -417,15 +430,15 @@ export class Level003 extends Phaser.Scene {
             this.meteors1.y,
             'meteors', 6
         ).setScale(1.25);
-        this.physics.add.overlap(this.laserGroup, this.meteors2, this.laserHitMeteors2, null, this);
-        this.physics.add.overlap(this.player, this.meteors2, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteors2, this.laserHitMeteors2, null, this);
+        this.physics.add.collider(this.player, this.meteors2, this.PlayerHitMeteors, null, this);
         this.meteors222 = new Meteors(
             this, this.meteors1.x,
             this.meteors1.y,
             'meteors', 6
         ).setScale(1.25);
-        this.physics.add.overlap(this.laserGroup, this.meteors222, this.laserHitMeteors222, null, this);
-        this.physics.add.overlap(this.player, this.meteors222, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteors222, this.laserHitMeteors222, null, this);
+        this.physics.add.collider(this.player, this.meteors222, this.PlayerHitMeteors, null, this);
         meteors1.destroy();
         laserGroup.destroy();
     }
@@ -436,15 +449,15 @@ export class Level003 extends Phaser.Scene {
             this.meteors222.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteors13333, this.laserHitMeteors13333, null, this);
-        this.physics.add.overlap(this.player, this.meteors13333, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteors13333, this.laserHitMeteors13333, null, this);
+        this.physics.add.collider(this.player, this.meteors13333, this.PlayerHitMeteors, null, this);
         this.meteors23333 = new Meteors(
             this, this.meteors222.x,
             this.meteors222.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteors23333, this.laserHitMeteors23333, null, this);
-        this.physics.add.overlap(this.player, this.meteors23333, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteors23333, this.laserHitMeteors23333, null, this);
+        this.physics.add.collider(this.player, this.meteors23333, this.PlayerHitMeteors, null, this);
         meteors222.destroy();
         laserGroup.destroy();
     }
@@ -456,15 +469,15 @@ export class Level003 extends Phaser.Scene {
             this.meteors11.y,
             'meteors', 6
         ).setScale(1.25);
-        this.physics.add.overlap(this.laserGroup, this.meteors22, this.laserHitMeteors22, null, this);
-        this.physics.add.overlap(this.player, this.meteors22, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteors22, this.laserHitMeteors22, null, this);
+        this.physics.add.collider(this.player, this.meteors22, this.PlayerHitMeteors, null, this);
         this.meteors122 = new Meteors(
             this, this.meteors11.x,
             this.meteors11.y,
             'meteors', 6
         ).setScale(1.25);
-        this.physics.add.overlap(this.laserGroup, this.meteors122, this.laserHitMeteors122, null, this);
-        this.physics.add.overlap(this.player, this.meteors122, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteors122, this.laserHitMeteors122, null, this);
+        this.physics.add.collider(this.player, this.meteors122, this.PlayerHitMeteors, null, this);
         meteors11.destroy();
         laserGroup.destroy();
     }
@@ -476,15 +489,15 @@ export class Level003 extends Phaser.Scene {
             this.meteors122.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteors4433, this.laserHitMeteors4433, null, this);
-        this.physics.add.overlap(this.player, this.meteors4433, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteors4433, this.laserHitMeteors4433, null, this);
+        this.physics.add.collider(this.player, this.meteors4433, this.PlayerHitMeteors, null, this);
         this.meteors533 = new Meteors(
             this, this.meteors122.x,
             this.meteors122.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteors533, this.laserHitMeteors533, null, this);
-        this.physics.add.overlap(this.player, this.meteors533, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteors533, this.laserHitMeteors533, null, this);
+        this.physics.add.collider(this.player, this.meteors533, this.PlayerHitMeteors, null, this);
         meteors122.destroy();
         laserGroup.destroy();
         }
@@ -495,15 +508,15 @@ export class Level003 extends Phaser.Scene {
             this.meteors22.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteors33, this.laserHitMeteors33, null, this);
-        this.physics.add.overlap(this.player, this.meteors33, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteors33, this.laserHitMeteors33, null, this);
+        this.physics.add.collider(this.player, this.meteors33, this.PlayerHitMeteors, null, this);
         this.meteors3333 = new Meteors(
             this, this.meteors22.x,
             this.meteors22.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteors3333, this.laserHitMeteors3333, null, this);
-        this.physics.add.overlap(this.player, this.meteors3333, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteors3333, this.laserHitMeteors3333, null, this);
+        this.physics.add.collider(this.player, this.meteors3333, this.PlayerHitMeteors, null, this);
         meteors22.destroy();
         laserGroup.destroy();
     }
@@ -514,15 +527,15 @@ export class Level003 extends Phaser.Scene {
             this.meteors2.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteors3, this.laserHitMeteors3, null, this);
-        this.physics.add.overlap(this.player, this.meteors3, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteors3, this.laserHitMeteors3, null, this);
+        this.physics.add.collider(this.player, this.meteors3, this.PlayerHitMeteors, null, this);
         this.meteors333 = new Meteors(
             this, this.meteors2.x,
             this.meteors2.y,
             'meteors', 6
         ).setScale(0.75);
-        this.physics.add.overlap(this.laserGroup, this.meteors333, this.laserHitMeteors333, null, this);
-        this.physics.add.overlap(this.player, this.meteors3333, this.PlayerHitMeteors, null, this);
+        this.physics.add.collider(this.laserGroup, this.meteors333, this.laserHitMeteors333, null, this);
+        this.physics.add.collider(this.player, this.meteors3333, this.PlayerHitMeteors, null, this);
         meteors2.destroy();
         laserGroup.destroy();       
     }
@@ -596,6 +609,7 @@ export class Level003 extends Phaser.Scene {
         {
             window.location.replace("https://www.youtube.com/watch?v=oHg5SJYRHA0");
         }
+        this.livesText.text = `${this.lives}`; 
     }
     shootLaser() {
         if (this.laserLimit >= 1)

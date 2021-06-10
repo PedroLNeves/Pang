@@ -61,5 +61,16 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             }
         }        
     }
+     hit() {
+        this.lives--;
+    }
+
+    isDead() {
+        return this.lives === 0;
+    }
+
+    getLives() {
+        return this.lives;
+    }
 
 }
