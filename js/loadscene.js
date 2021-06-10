@@ -13,6 +13,12 @@ export class LoadScene extends Phaser.Scene {
             frameWidth: 256,
             frameHeight: 288
         });
+        this.load.audio('pew', './images/pew.mp3', {
+            instances: 1
+        });
+        this.load.audio('oof', './images/oof.mp3', {
+            instances: 1
+        });
 
         this.load.image('laser', './images/harpon.png');
 

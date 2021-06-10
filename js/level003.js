@@ -24,6 +24,7 @@ class LaserGroup extends Phaser.Physics.Arcade.Group
     fireLaser(x, y) {
 		const laser = this.getFirstDead(false);
 		if (laser) {
+            this.scene.sound.play('pew');
 			laser.fire(x, y);
 		}
 	}
@@ -47,7 +48,6 @@ class Laser extends Phaser.Physics.Arcade.Sprite {
 		super.preUpdate(time, delta);
  
 		if (this.y <= 2500) {
-            console.log("poop");
 			this.setActive(false);
 			this.setVisible(false);
             this.scene.laserLimit = 0;
@@ -103,10 +103,14 @@ export class Level003 extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.meteorsY, this.PlayerHitMeteors, null, this);
         this.physics.add.overlap(this.player, this.meteors, this.PlayerHitMeteors, null, this);
 
+        this.sound.add('pew');
+        this.sound.add('oof');
+
     }
 
     PlayerHitMeteors()
     {
+        this.sound.play('oof');
         this.scene.restart();
         this.laserLimit = 0;
     }
@@ -271,7 +275,6 @@ export class Level003 extends Phaser.Scene {
         this.laserLimit = 0; 
         meteorsY122.destroy();
         laserGroup.destroy();
-        console.log("4");
         this.meteorsScore3++;
     }
     laserHitMeteorsY211(laserGroup, meteorsY211){
@@ -304,7 +307,6 @@ export class Level003 extends Phaser.Scene {
     /////
     laserHitMeteorsX1(laserGroup, meteorsX1)
     {
-        console.log("NUMBER ONE BUG");
             this.laserLimit = 0; 
             this.meteorsX11 = new Meteors(
                 this, this.meteorsX1.x,
@@ -325,7 +327,6 @@ export class Level003 extends Phaser.Scene {
     }
     laserHitMeteorsX2(laserGroup, meteorsX2)
     {
-        console.log("NUMBER TWO BUG");
             this.laserLimit = 0; 
             this.meteorsX21 = new Meteors(
                 this, this.meteorsX2.x,
@@ -597,8 +598,6 @@ export class Level003 extends Phaser.Scene {
         }
     }
     shootLaser() {
-
-        console.log(+ this.laserLimit);
         if (this.laserLimit >= 1)
         {
             return;
