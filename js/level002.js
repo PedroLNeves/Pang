@@ -1,6 +1,7 @@
 import { Player } from "./player.js";
 import { Meteors } from "./meteors.js";
 import { Harpon } from "./harpon.js";
+ 
 // class MeteorGroup extends Phaser.Physics.Arcade.Group
 // {
 //     constructor(scene) {
@@ -30,12 +31,9 @@ class LaserGroup extends Phaser.Physics.Arcade.Group
 	}
  
 }
- 
 class Laser extends Phaser.Physics.Arcade.Sprite {
 	constructor(scene, x, y) {      
-		super(scene, x, y, 'laser');
-
-        
+		super(scene, x, y, 'laser');       
 	}
     fire(x, y) {
 		this.body.reset(x, y);
@@ -62,14 +60,13 @@ export class Level002 extends Phaser.Scene {
         super('Level002');
         this.laserLimit = 0;
         this.meteorsScore2 = 0;
+        this.playerInvFrames = 1; //1 = true,  0 = false/ UNUSED AS OF NOW
 
         this.laserGroup;
     }
-
     init() {
         this.controls = this.input.keyboard.createCursorKeys();
     }
-
     create() {
         this.add.image(0, 0, 'background2').setOrigin(0).setScale(5);
 
@@ -105,21 +102,24 @@ export class Level002 extends Phaser.Scene {
         }, this);
         this.sound.add('pew');
         this.sound.add('oof');
+        
     }
-
     PlayerHitMeteors()
     {
-        this.sound.play('oof');
-        this.scene.restart();
-        this.laserLimit = 0;
+        if (this.playerInvFrames = 1)
+        {
+            this.playerInvFrames = 0;
+            this.sound.play('oof');
+            this.scene.restart();
+        } else {
+            console.log("NO DAMAGE HAHA");
+        }
     }
     /////
-    //BEYOND THIS POINT IT IS TOO LATE YOU HAVE REACHED PEAK DESPERATION AND GHETTO TRICKS
+    //BEYOND THIS POINT IT IS TOO LATE YOU HAVE REACHED PEAK DESPERATION
     /////
-
     laserHitMeteorsX1(laserGroup, meteorsX1)
     {
-        console.log("NUMBER ONE BUG");
             this.laserLimit = 0; 
             this.meteorsX11 = new Meteors(
                 this, this.meteorsX1.x,
@@ -140,7 +140,6 @@ export class Level002 extends Phaser.Scene {
     }
     laserHitMeteorsX2(laserGroup, meteorsX2)
     {
-        console.log("NUMBER TWO BUG");
             this.laserLimit = 0; 
             this.meteorsX21 = new Meteors(
                 this, this.meteorsX2.x,
@@ -223,7 +222,6 @@ export class Level002 extends Phaser.Scene {
         meteors.destroy();
         laserGroup.destroy();
     }
-///
     laserHitMeteors1(laserGroup, meteors1){
         this.laserLimit = 0; 
         this.meteors2 = new Meteors(
@@ -376,7 +374,6 @@ export class Level002 extends Phaser.Scene {
         this.meteorsScore2++;
     }
     laserHitMeteors33(laserGroup, meteors33){
-        //COUNT NUMBER UNTIL WIN YES
         this.laserLimit = 0; 
         meteors33.destroy();
         laserGroup.destroy();
@@ -417,6 +414,8 @@ export class Level002 extends Phaser.Scene {
         {
             this.scene.start('Level003');
         }
+
+        
     }
     shootLaser() {
         if (this.laserLimit >= 1)
