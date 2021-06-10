@@ -80,21 +80,18 @@ export class Level001 extends Phaser.Scene {
             this.game.config.width * 0.5,
             this.game.config.height,
             'player', 0
-            );
+            ).setScale(3.5);
             this.meteors = new Meteors(
                 this, this.game.config.width * 0.5,
                 this.game.config.height * 0.5,
                 'meteors', 6
             );
+            this.player.setSize(100,180);
+            this.player.body.offset.y = 100;
         this.laserGroup = new LaserGroup(this);
         this.physics.add.overlap(this.laserGroup, this.meteors, this.laserHitMeteors, null, this);
         this.physics.add.overlap(this.player, this.meteors, this.PlayerHitMeteors, null, this);
-
-
-        ///
-    
-
-        ///
+        
         this.input.manager.enabled = true;
         this.input.once('pointerdown', function () {
             this.scene.start('Level002');
